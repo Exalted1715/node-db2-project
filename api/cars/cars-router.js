@@ -4,21 +4,19 @@ const Car = require('./cars-model')
 const {
 checkCarId,
 checkCarPayload,
-checkVinNumberUnique,
 checkVinNumberValid,
+checkVinNumberUnique,
 } = require('./cars-middleware')
-
-
 
 
 const router = express.Router()
 
 router.get('/', async (req, res, next)=> {
     try {
-        const cars = await Car.getAll()
-        res.json(cars)
+    const cars = await Car.getAll()
+    res.json(cars)
     }catch (err) {
-        next(err)
+    next(err)
     }
 })
 
@@ -32,7 +30,12 @@ router.post(
     checkVinNumberValid,
     checkVinNumberUnique,
     async (req, res, next)=> {
-    res.json('posting new car')
+        try {
+        const car = await Car.create(req.body)
+        res.json(car)
+        }catch (err) {
+        next(err)
+        }
 })
 
 module.exports = router
