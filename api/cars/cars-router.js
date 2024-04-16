@@ -13,8 +13,13 @@ router.get('/', async (req, res, next)=> {
     }
 })
 
-router.get('/', async (req, res, next)=> {
-    res.json(`getting carwith id ${req.params.id}`)
+router.get('/:id', async (req, res, next)=> {
+    try {
+        const car = await Car.getById(req.params.id)
+        res.json(car)
+    }catch (err) {
+        next(err)
+    }
 })
 
 router.post('/', async (req, res, next)=> {
