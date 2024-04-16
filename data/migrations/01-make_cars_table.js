@@ -18,5 +18,6 @@ return knex.schema.creatTable('cars', tbl =>{
 };
 
 exports.down = function (knex) {
+  return knex.schema.dropTableIfExists('cars')
 
 };
